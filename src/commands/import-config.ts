@@ -6,7 +6,9 @@ const command: Command<any, any> = {
   builder: (yargs) => {
     return yargs;
   },
-  handler: (yargs) => {},
+  handler: (yargs) => {
+    // TODO: implement import-config command for import a entirely config file
+  },
 };
 
 export default command;
