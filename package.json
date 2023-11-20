@@ -23,7 +23,6 @@
     "start:mac": "tsc && yarn pkg . && bin/gsqlpad-node18-macos"
   },
   "devDependencies": {
-    "@types/cli": "^0.11.24",
     "@types/cookie": "^0.5.4",
     "@types/node": "^20.9.2",
     "@types/ping": "^0.4.4",
