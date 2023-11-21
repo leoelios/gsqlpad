@@ -32,7 +32,3 @@ export async function configure({
     console.debug(error);
   }
 }
-
-export async function isInstanceAvailable(host: string) {
-  return ping(host);
-}

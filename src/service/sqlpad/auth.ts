@@ -3,7 +3,6 @@ import Session from "../../types/session";
 import { addProtocolIfNecessary } from "../../utils/args";
 import { hash } from "../../utils/hash";
 import { saveInstance } from "../../utils/local-config";
-import { isInstanceAvailable } from "../sqlpad";
 
 export async function generateSession({
   instance,
@@ -19,12 +18,6 @@ export async function generateSession({
   identifier?: string;
 }): Promise<Session> {
   const instanceURI = addProtocolIfNecessary(instance, insecure);
-
-  if (!(await isInstanceAvailable(instanceURI))) {
-    throw new Error(
-      `Instance "${instance}" not available from this host, verify your proxy or VPN network configuration.`
-    );
-  }
 
   console.log("\n🟢 Instance network connection checked");
 
