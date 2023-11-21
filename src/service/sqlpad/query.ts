@@ -20,7 +20,7 @@ function askQuestion(prompt: string): Promise<string> {
   });
 }
 
-async function updateInstanceSessionIfNecessary(instance: Instance) {
+export async function updateInstanceSessionIfNecessary(instance: Instance) {
   if (isInstanceExpired(instance)) {
     console.log("🟠 session tokens expired, re-trying generate new session...");
     instance.session = await generateSession({
@@ -44,7 +44,7 @@ async function startInterativePrompt(instance: Instance) {
   interativePrompt(instance, connection);
 }
 
-async function chooseConnection(instance: Instance): Promise<{
+export async function chooseConnection(instance: Instance): Promise<{
   established: EstablishConnectionResponse;
   connection: Connection;
 }> {
