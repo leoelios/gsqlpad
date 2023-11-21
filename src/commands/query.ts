@@ -1,3 +1,4 @@
+import query from "../service/sqlpad/query";
 import Command from "../types/command";
 
 const command: Command<any, any> = {
@@ -8,9 +9,7 @@ const command: Command<any, any> = {
       type: "string",
     });
   },
-  handler: ({ instanceId }) => {
-    console.log(instanceId);
-  },
+  handler: ({ instanceId }) => query(instanceId),
 };
 
 export default command;

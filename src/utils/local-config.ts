@@ -12,8 +12,16 @@ interface Config {
   instances: Array<Instance>;
 }
 
+export function isInstanceExpired(instance: Instance): boolean {
+  return new Date(instance.session.expiresIn) <= new Date();
+}
+
 export function getInstances(): Array<Instance> {
   return getConfig().instances;
+}
+
+export function getInstanceById(identifier: string): Instance | undefined {
+  return getInstances().find((instance) => instance.identifier === identifier);
 }
 
 export function saveInstance(instance: Instance) {

@@ -2,6 +2,10 @@
 
 Globlify access to multiple SQLPAD instances into a unique command-line interface.
 
+## todo
+
+- compress using gzip (pkg)
+
 ## user docs
 
 - [User documentation](./docs/index.md)

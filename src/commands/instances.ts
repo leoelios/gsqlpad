@@ -1,7 +1,7 @@
 import Instance from "../types/Instance";
 import InstanceStatus from "../types/InstanceStatus";
 import Command from "../types/command";
-import { getInstances } from "../utils/local-config";
+import { getInstances, isInstanceExpired } from "../utils/local-config";
 
 const command: Command<any, any> = {
   title: "instances",
@@ -25,7 +25,7 @@ const command: Command<any, any> = {
 };
 
 function status(instance: Instance) {
-  if (new Date() >= instance.session.expiresIn) {
+  if (isInstanceExpired(instance)) {
     InstanceStatus.expired;
   }
 
