@@ -1,6 +1,13 @@
 import axios from "axios";
+import https from "https";
 import cookie from "cookie";
 import Session from "../types/session";
+
+const api = axios.create({
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false,
+  }),
+});
 
 interface AuthenticationResponse {
   authenticated: boolean;
@@ -62,7 +69,7 @@ export default class SQLPadInstanceClient {
     token: string
   ): Promise<QueryResponse> {
     const response: BatchResponse = (
-      await axios.post(this.instance + "/api/batches", request, {
+      await api.post(this.instance + "/api/batches", request, {
         headers: {
           Cookie: "sqlpad.sid=" + token,
         },
@@ -99,7 +106,7 @@ export default class SQLPadInstanceClient {
     token: string
   ): Promise<Array<Row>> {
     const response = (
-      await axios.get(
+      await api.get(
         this.instance + "/api/statements/" + statementId + "/results",
         {
           headers: {
@@ -114,7 +121,7 @@ export default class SQLPadInstanceClient {
 
   async getQueryResult(batchId: string, token: string): Promise<BatchResponse> {
     const response: BatchResponse = (
-      await axios.get(this.instance + "/api/batches/" + batchId, {
+      await api.get(this.instance + "/api/batches/" + batchId, {
         headers: {
           Cookie: "sqlpad.sid=" + token,
         },
@@ -136,7 +143,7 @@ export default class SQLPadInstanceClient {
     connectionId: string,
     token: string
   ): Promise<EstablishConnectionResponse> {
-    const response = await axios.post(
+    const response = await api.post(
       this.instance + "/api/connection-clients",
       {
         connectionId,
@@ -152,7 +159,7 @@ export default class SQLPadInstanceClient {
   }
 
   async availableConnections(token: string): Promise<Array<Connection>> {
-    const response = await axios.get(this.instance + "/api/connections", {
+    const response = await api.get(this.instance + "/api/connections", {
       headers: {
         Cookie: "sqlpad.sid=" + token,
       },
@@ -168,7 +175,7 @@ export default class SQLPadInstanceClient {
     user: string;
     password: string;
   }): Promise<AuthenticationResponse> {
-    const response = await axios.post(
+    const response = await api.post(
       this.instance + "/api/signin",
       {
         email: user,
